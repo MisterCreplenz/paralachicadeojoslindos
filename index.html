@@ -241,7 +241,7 @@
         function selectItem(element, value, type) {
             document.querySelectorAll(`.item.selected`).forEach(item => item.classList.remove('selected'));
             element.classList.add('selected');
-            if (type === 'Date') selectedDate = value;
+            if (type === 'date') selectedDate = value;
             if (type === 'food') selectedFood = value;
             if (type === 'activity') selectedActivity = value;
         }
@@ -251,18 +251,33 @@
         
         }
 
-        function submitFinalSelection() {
-            document.getElementById('dateInput').value = selectedDate;
-            document.getElementById('foodInput').value = selectedFood;
-            document.getElementById('activityInput').value = selectedActivity;
+function submitFinalSelection() {
+            const finalMessage = `¡Perfecto! Nuestra cita es el ${selectedDate} para disfrutar de ${selectedFood} y luego ${selectedActivity}. 💖`;
+            document.getElementById('summaryText').innerText = finalMessage;
 
-            // Mostrar resumen antes del envío
-            document.getElementById('summaryText').innerText = `¡Perfecto! Nuestra cita es el ${selectedDate} para disfrutar de ${selectedFood} y luego ${selectedActivity}. 💖`;
+            // Enviar datos a Google Sheets
+            fetch('https://script.google.com/macros/s/AKfycbxzMaaFkxDdq3afKnOWvd0Rdmno8FOvFXekABxSLpfNBBdzjp6sQOgkYoYFkR6ACpUd/exec', {
+                method: 'POST',
+                body: JSON.stringify({
+                    date: selectedDate,
+                    food: selectedFood,
+                    activity: selectedActivity
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log('Datos enviados correctamente:', data);
+            })
+            .catch(error => {
+                console.error('Error al enviar los datos:', error);
+                alert('Hubo un problema al enviar la información. Por favor, intenta nuevamente.');
+            });
 
-            // Enviar el formulario automáticamente
-            document.getElementById('valentineForm').submit();
+            goToPage('summaryPage');
         }
-    </script>
     </script>
 </body>
 </html>
