@@ -178,7 +178,7 @@
         function selectItem(element, value, type) {
             document.querySelectorAll(`.item.selected`).forEach(item => item.classList.remove('selected'));
             element.classList.add('selected');
-
+            if (type === 'date') selectedDate = value;
             if (type === 'food') selectedFood = value;
             if (type === 'activity') selectedActivity = value;
         }
@@ -189,17 +189,19 @@
             selectedDate = value;
         }
 
-        function submitFinalSelection() {
-            document.getElementById('dateInput').value = selectedDate;
-            document.getElementById('foodInput').value = selectedFood;
-            document.getElementById('activityInput').value = selectedActivity;
+         function submitFinalSelection() {
+        // Llenar los campos del formulario
+        document.getElementById('dateInput').value = selectedDate;
+        document.getElementById('foodInput').value = selectedFood;
+        document.getElementById('activityInput').value = selectedActivity;
 
-            document.getElementById('valentineForm').submit();
+        // Mostrar resumen
+        document.getElementById('summaryText').innerText = `¡Perfecto! Nuestra cita es el ${selectedDate} para disfrutar de ${selectedFood} y luego ${selectedActivity}. 💖`;
 
-            document.getElementById('summaryText').innerText = `¡Perfecto! Nuestra cita es el ${selectedDate} para disfrutar de ${selectedFood} y luego ${selectedActivity}. 💖`;
-            goToPage('summaryPage');
-        }
-    </script>
+        // Enviar el formulario automáticamente
+        document.getElementById('valentineForm').submit();
+    }
+</script>
 </body>
 </html>
 
