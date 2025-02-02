@@ -240,12 +240,22 @@
         }
 
         function selectItem(element, value, type) {
-            document.querySelectorAll(`.item.${type}.selected`).forEach(item => item.classList.remove('selected'));
+        // Verificar si ya está seleccionado para desmarcarlo
+        if (element.classList.contains('selected')) {
+            element.classList.remove('selected');
+            if (type === 'date') selectedDate = '';
+            if (type === 'food') selectedFood = '';
+            if (type === 'activity') selectedActivity = '';
+        } else {
+            // Desmarcar todos los demás elementos
+            document.querySelectorAll(`.item.${type}`).forEach(item => item.classList.remove('selected'));
+            // Marcar el elemento actual
             element.classList.add('selected');
             if (type === 'date') selectedDate = value;
             if (type === 'food') selectedFood = value;
             if (type === 'activity') selectedActivity = value;
         }
+    }
 
         function submitFinalSelection() {
             if (!selectedDate || !selectedFood || !selectedActivity) {
