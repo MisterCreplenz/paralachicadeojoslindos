@@ -26,6 +26,9 @@
         h1 {
             color: #e63946;
         }
+        p {
+            color: #333;
+        }
         .button-container {
             margin-top: 20px;
         }
@@ -42,6 +45,9 @@
         button:hover {
             background-color: #ff6b81;
         }
+        #yesButton {
+            transition: all 0.3s ease-in-out;
+        }
         .hidden {
             display: none;
         }
@@ -55,7 +61,6 @@
             cursor: pointer;
             border: 2px solid transparent;
             border-radius: 8px;
-            transition: border-color 0.3s ease;
         }
         .item.selected {
             border-color: #e63946;
@@ -76,6 +81,16 @@
             font-size: 14px;
             border-radius: 3px;
         }
+        .summary {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .summary img {
+            width: 150px;
+            border-radius: 10px;
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
@@ -85,33 +100,35 @@
 <body>
     <div id="page1" class="card">
         <h1>❤️ Would u be my Valentine? ❤️</h1>
-        <p id="mainMessage">Este 14 de febrero o 15 de febrero.</p>
+        <p id="mainMessage">Este 14 de febrero o 15 de febrero. J'espère que ça ne te viendra même pas à l'esprit de douter de ça miamor</p>
         <div class="button-container">
             <button id="yesButton" onclick="goToPage('page2')">Sí, acepto</button>
             <button onclick="showMaybeResponse()">Tal vez...</button>
         </div>
+        <p id="response" style="margin-top: 20px; font-weight: bold;"></p>
     </div>
 
     <div id="page2" class="card hidden">
         <h1>Elige la fecha de nuestra cita</h1>
         <p>Puedes elegir entre dos días:</p>
         <div class="grid">
-            <div class="item" onclick="selectDate(this, 'Viernes, 14 de febrero')">
+            <div class="item" onclick="selectDate('Viernes, 14 de febrero')">
                 <img src="https://i.imgur.com/3rq66DX.jpeg" alt="14 de febrero">
                 <span>Viernes, 14 de febrero</span>
             </div>
-            <div class="item" onclick="selectDate(this, 'Sábado, 15 de febrero')">
+            <div class="item" onclick="selectDate('Sábado, 15 de febrero')">
                 <img src="https://i.imgur.com/J0JdGUV.jpeg" alt="15 de febrero">
                 <span>Sábado, 15 de febrero</span>
             </div>
         </div>
+        <p><strong>Nota:</strong> Le 14 février, c'est la Saint-Valentin, parfait et très classique, mais on a tous les deux des obligations dès le matin. Le 15 février, c'est un samedi, idéal pour sortir tôt et même voir le coucher de soleil si tu veux 🌅</p>
         <div class="button-container">
             <button onclick="goToPage('page3')">Continuar</button>
         </div>
     </div>
 
     <div id="page3" class="card hidden">
-        <h1>¿Qué quieres comer?</h1>
+        <h1>What do you wanna eat? and I'm not in the menu, sorry</h1>
         <p>Selecciona entre estas opciones para nuestra cita:</p>
         <div class="grid">
             <div class="item" onclick="selectItem(this, 'Comida italiana', 'food')">
@@ -122,6 +139,26 @@
                 <img src="https://i.imgur.com/AZxGmit.jpeg" alt="Comida mexicana">
                 <span>Comida mexicana</span>
             </div>
+            <div class="item" onclick="selectItem(this, 'Comida japonesa', 'food')">
+                <img src="https://i.imgur.com/3DQjAlK.jpeg" alt="Comida japonesa">
+                <span>Comida japonesa</span>
+            </div>
+            <div class="item" onclick="selectItem(this, 'Comida latina', 'food')">
+                <img src="https://i.imgur.com/xRMmDrh.jpeg" alt="Comida latina">
+                <span>Comida latina</span>
+            </div>
+            <div class="item" onclick="selectItem(this, 'Comida india', 'food')">
+                <img src="https://i.imgur.com/goB47pw.jpeg" alt="Comida india">
+                <span>Comida india</span>
+            </div>
+            <div class="item" onclick="selectItem(this, 'Comida china', 'food')">
+                <img src="https://i.imgur.com/7AoJSj8.jpeg" alt="Comida china">
+                <span>Comida china</span>
+            </div>
+            <div class="item" onclick="selectItem(this, 'Comida griega', 'food')">
+                <img src="https://i.imgur.com/HOeKPkZ.jpeg" alt="Comida griega">
+                <span>Comida griega</span>
+            </div>
         </div>
         <div class="button-container">
             <button onclick="goToPage('page4')">Continuar</button>
@@ -129,15 +166,32 @@
     </div>
 
     <div id="page4" class="card hidden">
-        <h1>Elige una actividad</h1>
+        <h1>Despues o antes de comer? On va faire quoi ?</h1>
+        <p>You can chose whatever you want, but babe, please if you want to do more than one thing, just let me know in our chat:</p>
         <div class="grid">
-            <div class="item" onclick="selectItem(this, 'Parque', 'activity')">
+            <div class="item" onclick="selectItem(this, 'Parque (caminar)', 'activity')">
                 <img src="https://i.imgur.com/fVyVVfS.jpeg" alt="Parque">
                 <span>Parque</span>
             </div>
             <div class="item" onclick="selectItem(this, 'Arcade', 'activity')">
                 <img src="https://i.imgur.com/CYgNBHS.jpeg" alt="Arcade">
                 <span>Arcade</span>
+            </div>
+            <div class="item" onclick="selectItem(this, 'Cinema', 'activity')">
+                <img src="https://i.imgur.com/RBNphDU.jpeg" alt="Cinema">
+                <span>Cinema</span>
+            </div>
+            <div class="item" onclick="selectItem(this, 'Exhibición', 'activity')">
+                <img src="https://i.imgur.com/3nBZGQV.jpeg" alt="Exhibición">
+                <span>Exhibición</span>
+            </div>
+            <div class="item" onclick="selectItem(this, 'Playa', 'activity')">
+                <img src="https://i.imgur.com/xm71Oe4.jpeg" alt="Playa">
+                <span>Playa</span>
+            </div>
+            <div class="item" onclick="selectItem(this, 'Bar', 'activity')">
+                <img src="https://i.imgur.com/gd1rFws.jpeg" alt="Bar">
+                <span>Bar</span>
             </div>
         </div>
         <div class="button-container">
@@ -153,55 +207,63 @@
         </div>
     </div>
 
-    <form action="https://formsubmit.co/el/xovuvi" method="POST" id="valentineForm">
-        <input type="hidden" name="date" id="dateInput">
-        <input type="hidden" name="food" id="foodInput">
-        <input type="hidden" name="activity" id="activityInput">
-    </form>
-
     <script>
+        let yesButton = document.getElementById('yesButton');
+        let mainMessage = document.getElementById('mainMessage');
         let maybeCounter = 0;
         let selectedFood = '';
         let selectedActivity = '';
         let selectedDate = '';
 
+        const maybeMessages = [
+            'Por que haz dado click ahi ?',
+            'Heyyy what the hell are u even doing ???',
+            'Réfléchis-y un peu plus, je sais que tu en as envie',
+            'Really? Ehm te gustan las flores ?...',
+            'Lo siento, no tienes otra opcion que aceptar! DICTADURA',
+            '¡Cada clic me hace más optimista!'
+        ];
+
         function showMaybeResponse() {
             maybeCounter++;
-            alert('Cada clic me hace más optimista.');
+            yesButton.style.transform = `scale(${1 + maybeCounter * 0.1})`;
+
+            if (maybeCounter <= maybeMessages.length) {
+                mainMessage.innerText = maybeMessages[maybeCounter - 1] || 'Parece que estás a punto de decir que sí...';
+            }
         }
 
-        function goToPage(pageId) {
-            document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
-            document.getElementById(pageId).classList.remove('hidden');
-        }
+       function goToPage(pageId) {
+    document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
+    document.getElementById(pageId).classList.remove('hidden');
+}
 
         function selectItem(element, value, type) {
             document.querySelectorAll(`.item.selected`).forEach(item => item.classList.remove('selected'));
             element.classList.add('selected');
-            if (type === 'date') selectedDate = value;
+            if (type === 'Date') selectedDate = value;
             if (type === 'food') selectedFood = value;
             if (type === 'activity') selectedActivity = value;
         }
 
-        function selectDate(element, value) {
-            document.querySelectorAll(`.grid .item`).forEach(item => item.classList.remove('selected'));
-            element.classList.add('selected');
+        function selectDate(value) {
             selectedDate = value;
+        
         }
 
-         function submitFinalSelection() {
-        // Llenar los campos del formulario
-        document.getElementById('dateInput').value = selectedDate;
-        document.getElementById('foodInput').value = selectedFood;
-        document.getElementById('activityInput').value = selectedActivity;
+        function submitFinalSelection() {
+            document.getElementById('dateInput').value = selectedDate;
+            document.getElementById('foodInput').value = selectedFood;
+            document.getElementById('activityInput').value = selectedActivity;
 
-        // Mostrar resumen
-        document.getElementById('summaryText').innerText = `¡Perfecto! Nuestra cita es el ${selectedDate} para disfrutar de ${selectedFood} y luego ${selectedActivity}. 💖`;
+            // Mostrar resumen antes del envío
+            document.getElementById('summaryText').innerText = `¡Perfecto! Nuestra cita es el ${selectedDate} para disfrutar de ${selectedFood} y luego ${selectedActivity}. 💖`;
 
-        // Enviar el formulario automáticamente
-        document.getElementById('valentineForm').submit();
-    }
-</script>
+            // Enviar el formulario automáticamente
+            document.getElementById('valentineForm').submit();
+        }
+    </script>
+    </script>
 </body>
 </html>
 
