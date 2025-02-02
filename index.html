@@ -166,7 +166,7 @@
     </div>
 
     <div id="page4" class="card hidden">
-        <h1>Despues o antes de comer? On va faire quoi ?</h1>
+        <h1>Después o antes de comer? On va faire quoi ?</h1>
         <p>You can chose whatever you want, but babe, please if you want to do more than one thing, just let me know in our chat:</p>
         <div class="grid">
             <div class="item" onclick="selectItem(this, 'Parque (caminar)', 'activity')">
@@ -205,6 +205,7 @@
         <div class="summary">
             <img src="https://i.imgur.com/hWafe35.gif" alt="Gif">
         </div>
+        <p>Por favor envíame un screenshot de esto para estar al tanto, un beso. 💋</p>
     </div>
 
     <script>
@@ -234,22 +235,26 @@
         }
 
        function goToPage(pageId) {
-    document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
-    document.getElementById(pageId).classList.remove('hidden');
-}
+            document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+        }
 
         function selectItem(element, value, type) {
-            document.querySelectorAll(`.item.selected`).forEach(item => item.classList.remove('selected'));
+            document.querySelectorAll(`.item.${type}.selected`).forEach(item => item.classList.remove('selected'));
             element.classList.add('selected');
             if (type === 'date') selectedDate = value;
             if (type === 'food') selectedFood = value;
             if (type === 'activity') selectedActivity = value;
         }
 
-function submitFinalSelection() {
+        function submitFinalSelection() {
+            if (!selectedDate || !selectedFood || !selectedActivity) {
+                alert('Por favor, selecciona una opción en cada categoría antes de confirmar.');
+                return;
+            }
             const finalMessage = `¡Perfecto! Nuestra cita es el ${selectedDate} para disfrutar de ${selectedFood} y luego ${selectedActivity}. 💖`;
             document.getElementById('summaryText').innerText = finalMessage;
-
+            goToPage('summaryPage');
         }
     </script>
 </body>
